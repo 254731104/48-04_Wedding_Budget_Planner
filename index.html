@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Budget Calculator & Planner - Free Wedding Budget Tracker (No Sign-Up)</title>
+    <meta name="description" content="Free wedding budget calculator and tracker. Estimate your wedding costs, track expenses by category, and stay under budget. No registration required. Works for small, medium & large weddings.">
+    <meta name="keywords" content="wedding budget calculator, wedding budget planner, wedding cost estimator, wedding budget template free, wedding expenses tracker">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://grow-a-garden-2-6p7.pages.dev/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Free Wedding Budget Calculator & Tracker">
+    <meta property="og:description" content="Plan your perfect wedding without breaking the bank. Free budget calculator, expense tracker, and cost benchmarks.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://grow-a-garden-2-6p7.pages.dev/">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-6134d6da7d6e?w=1200&h=630&fit=crop">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pink: { DEFAULT: '#be185d', light: '#f43f5e', dark: '#9d174c', soft: '#fce7f3' },
+                        coral: '#e76f51',
+                        gold: '#d4a574',
+                        cream: '#fdf6f0'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Wedding Budget Planner & Tracker",
+        "description": "Free wedding budget calculator and expense tracker. Plan your wedding costs by category, compare city averages, and track your spending.",
+        "url": "https://grow-a-garden-2-6p7.pages.dev/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How much does the average wedding cost in 2025?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The average wedding cost in the US ranges from $15,000 for a small intimate ceremony to $50,000+ for a large celebration. Destination weddings and those in major cities like NYC can exceed $70,000."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What percentage of wedding budget goes to venue?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Traditionally, the venue and catering together consume about 50-60% of the total wedding budget. Specifically, the venue rental typically accounts for 25-30%, and food & beverage for another 20-30%."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How can I plan a wedding on a tight budget?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Key strategies include: choosing an off-peak month (January-March or November), having a small guest list (under 50 guests), selecting a non-traditional venue like a park or community hall,DIY decorations, and booking caterers instead of full-service venues."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #fce7f3 0%, #fdf6f0 50%, #fff5f5 100%);
+        }
+        .dark .gradient-bg {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(190, 24, 93, 0.15);
+        }
+
+        .progress-bar {
+            transition: width 0.6s ease;
+        }
+
+        .budget-row:hover {
+            background-color: rgba(190, 24, 93, 0.05);
+        }
+        .dark .budget-row:hover {
+            background-color: rgba(244, 63, 94, 0.1);
+        }
+
+        .over-budget {
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { background-color: #fee2e2; }
+            50% { background-color: #fecaca; }
+        }
+        .dark .over-budget {
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #be185d;
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #be185d;
+            cursor: pointer;
+        }
+
+        .glow {
+            text-shadow: 0 0 10px rgba(190, 24, 93, 0.3);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen dark:bg-gray-900 transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-sm border-b border-pink-soft/30 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="./index.html" class="flex items-center gap-2">
+                    <i data-lucide="heart" class="text-pink w-6 h-6"></i>
+                    <span class="font-serif text-xl font-bold text-gray-800 dark:text-white">Wedding Budget Planner</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="./index.html" class="text-gray-700 dark:text-gray-300 hover:text-pink transition font-medium">Calculator</a>
+                    <a href="./blog/index.html" class="text-gray-700 dark:text-gray-300 hover:text-pink transition font-medium">Blog</a>
+                    <a href="./about.html" class="text-gray-700 dark:text-gray-300 hover:text-pink transition font-medium">About</a>
+                    <a href="./contact.html" class="text-gray-700 dark:text-gray-300 hover:text-pink transition font-medium">Contact</a>
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-pink-soft dark:bg-gray-700 hover:bg-pink-light/20 transition" aria-label="Toggle dark mode">
+                        <i data-lucide="moon" class="w-5 h-5 text-pink dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 text-yellow-400 hidden dark:inline"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="darkModeToggleMobile" class="p-2 rounded-lg bg-pink-soft dark:bg-gray-700" aria-label="Toggle dark mode">
+                        <i data-lucide="moon" class="w-5 h-5 text-pink dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 text-yellow-400 hidden dark:inline"></i>
+                    </button>
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg" aria-label="Open menu">
+                        <i data-lucide="menu" class="w-6 h-6 text-gray-700 dark:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+                <a href="./index.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-soft dark:hover:bg-gray-700 rounded-lg">Calculator</a>
+                <a href="./blog/index.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-soft dark:hover:bg-gray-700 rounded-lg">Blog</a>
+                <a href="./about.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-soft dark:hover:bg-gray-700 rounded-lg">About</a>
+                <a href="./contact.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-soft dark:hover:bg-gray-700 rounded-lg">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div class="text-center mb-12 fade-in">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 glow">
+                Your Dream Wedding,<br>
+                <span class="text-pink">Without the Budget Stress</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8">
+                Free wedding budget calculator & tracker. Estimate costs, plan expenses by category, and track every dollar.
+                <strong>No sign-up required.</strong>
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="px-4 py-2 bg-pink-soft dark:bg-pink/20 text-pink-dark dark:text-pink-light rounded-full text-sm font-medium">100% Free</span>
+                <span class="px-4 py-2 bg-pink-soft dark:bg-pink/20 text-pink-dark dark:text-pink-light rounded-full text-sm font-medium">No Registration</span>
+                <span class="px-4 py-2 bg-pink-soft dark:bg-pink/20 text-pink-dark dark:text-pink-light rounded-full text-sm font-medium">Instant Results</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wedding Budget Calculator -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden card-hover">
+            <div class="bg-gradient-to-r from-pink to-coral p-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                    <i data-lucide="calculator" class="w-7 h-7"></i>
+                    Wedding Budget Calculator
+                </h2>
+                <p class="text-white/80 mt-2">Get an instant estimated budget based on your wedding size, city, and style</p>
+            </div>
+
+            <div class="p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Wedding Size -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            Wedding Size
+                        </label>
+                        <select id="weddingSize" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-pink focus:border-transparent transition">
+                            <option value="small">Small (Up to 50 guests)</option>
+                            <option value="medium" selected>Medium (50-100 guests)</option>
+                            <option value="large">Large (100-200 guests)</option>
+                        </select>
+                    </div>
+
+                    <!-- City/Region -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            Location
+                        </label>
+                        <select id="city" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-pink focus:border-transparent transition">
+                            <option value="nyc">New York City</option>
+                            <option value="la">Los Angeles</option>
+                            <option value="chicago">Chicago</option>
+                            <option value="seattle">Seattle</option>
+                            <option value="other">Other City</option>
+                        </select>
+                    </div>
+
+                    <!-- Wedding Style -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            Wedding Style
+                        </label>
+                        <select id="weddingStyle" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-pink focus:border-transparent transition">
+                            <option value="traditional">Traditional (Indoor)</option>
+                            <option value="outdoor">Outdoor / Garden</option>
+                            <option value="destination">Destination</option>
+                        </select>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <div class="flex items-end">
+                        <button onclick="calculateBudget()" class="w-full px-6 py-3 bg-pink hover:bg-pink-dark text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            Calculate Budget
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="budgetResults" class="mt-8 hidden">
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-8">
+                        <div class="text-center mb-8">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Estimated Total Wedding Cost</p>
+                            <p id="totalBudget" class="text-5xl md:text-6xl font-bold text-pink mt-2">$25,000</p>
+                        </div>
+
+                        <!-- Budget Breakdown -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                                    <i data-lucide="pie-chart" class="w-5 h-5 text-pink"></i>
+                                    Budget Breakdown by Category
+                                </h3>
+                                <div id="budgetBreakdown" class="space-y-3">
+                                    <!-- Dynamically populated -->
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-coral"></i>
+                                    Visual Summary
+                                </h3>
+                                <div id="visualSummary" class="space-y-4">
+                                    <!-- Dynamically populated -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-8 flex flex-wrap justify-center gap-4">
+                            <button onclick="window.print()" class="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition flex items-center gap-2">
+                                <i data-lucide="printer" class="w-5 h-5"></i>
+                                Print Budget Plan
+                            </button>
+                            <button onclick="shareBudget()" class="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition flex items-center gap-2">
+                                <i data-lucide="share-2" class="w-5 h-5"></i>
+                                Share
+                            </button>
+                            <a href="#tracker" class="px-6 py-3 bg-pink text-white rounded-lg hover:bg-pink-dark transition flex items-center gap-2">
+                                <i data-lucide="edit-3" class="w-5 h-5"></i>
+                                Start Tracking Expenses
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expense Tracker -->
+    <section id="tracker" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden card-hover">
+            <div class="bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 p-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                    <i data-lucide="wallet" class="w-7 h-7"></i>
+                    Wedding Budget Tracker
+                </h2>
+                <p class="text-white/80 mt-2">Enter your budget and actual spending to track every category</p>
+            </div>
+
+            <div class="p-6 md:p-8">
+                <!-- Budget Overview Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-xl border border-blue-200 dark:border-blue-700">
+                        <p class="text-sm text-blue-600 dark:text-blue-400">Total Budget</p>
+                        <p id="summaryBudget" class="text-2xl font-bold text-blue-800 dark:text-blue-300">$0</p>
+                    </div>
+                    <div class="bg-green-50 dark:bg-green-900/30 p-4 rounded-xl border border-green-200 dark:border-green-700">
+                        <p class="text-sm text-green-600 dark:text-green-400">Total Spent</p>
+                        <p id="summarySpent" class="text-2xl font-bold text-green-800 dark:text-green-300">$0</p>
+                    </div>
+                    <div class="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-xl border border-purple-200 dark:border-purple-700">
+                        <p class="text-sm text-purple-600 dark:text-purple-400">Remaining</p>
+                        <p id="summaryRemaining" class="text-2xl font-bold text-purple-800 dark:text-purple-300">$0</p>
+                    </div>
+                    <div class="bg-orange-50 dark:bg-orange-900/30 p-4 rounded-xl border border-orange-200 dark:border-orange-700">
+                        <p class="text-sm text-orange-600 dark:text-orange-400">Overall Progress</p>
+                        <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3 mt-2">
+                            <div id="overallProgress" class="progress-bar bg-gradient-to-r from-pink to-coral h-3 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p id="progressPercent" class="text-sm mt-1 font-medium text-orange-700 dark:text-orange-400">0%</p>
+                    </div>
+                </div>
+
+                <!-- Tracker Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200 dark:border-gray-700">
+                                <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Category</th>
+                                <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Budget ($)</th>
+                                <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Actual Spent ($)</th>
+                                <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Difference</th>
+                                <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Status</th>
+                                <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300 w-10"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="trackerBody">
+                            <!-- Dynamically populated rows -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add New Category -->
+                <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="newCategory" placeholder="Category name" class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-pink focus:border-transparent">
+                    <input type="number" id="newBudget" placeholder="Budget amount" class="w-full sm:w-40 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-pink focus:border-transparent">
+                    <button onclick="addCategory()" class="px-6 py-3 bg-pink hover:bg-pink-dark text-white font-semibold rounded-lg transition flex items-center justify-center gap-2">
+                        <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                        Add
+                    </button>
+                </div>
+
+                <!-- Reset Button -->
+                <div class="mt-4 text-right">
+                    <button onclick="resetTracker()" class="text-sm text-gray-500 dark:text-gray-400 hover:text-pink transition flex items-center gap-1 ml-auto">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Reset All Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Benchmarks -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden card-hover">
+            <div class="p-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3">
+                    <i data-lucide="bar-chart-3" class="w-7 h-7 text-pink"></i>
+                    Wedding Budget Benchmarks
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8">Standard percentage breakdown by category based on industry averages</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Benchmark Chart -->
+                    <div class="space-y-4">
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Venue & Rental</span>
+                                <span class="text-sm font-bold text-pink">25-30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-pink to-pink-dark h-4 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Food & Beverage</span>
+                                <span class="text-sm font-bold text-coral">20-30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-coral to-orange-400 h-4 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Photography & Video</span>
+                                <span class="text-sm font-bold text-blue-600 dark:text-blue-400">8-12%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Attire & Accessories</span>
+                                <span class="text-sm font-bold text-purple-600 dark:text-purple-400">5-9%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-purple-500 to-purple-600 h-4 rounded-full" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Music & Entertainment</span>
+                                <span class="text-sm font-bold text-yellow-600 dark:text-yellow-400">5-10%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-yellow-400 to-yellow-600 h-4 rounded-full" style="width: 35%"></div>
+                            </div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Flowers & Decor</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">5-10%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-green-400 to-green-600 h-4 rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Stationery & Invitations</span>
+                                <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400">2-4%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-indigo-400 to-indigo-600 h-4 rounded-full" style="width: 18%"></div>
+                            </div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Transportation</span>
+                                <span class="text-sm font-bold text-teal-600 dark:text-teal-400">2-3%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-teal-400 to-teal-600 h-4 rounded-full" style="width: 12%"></div>
+                            </div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Miscellaneous / Contingency</span>
+                                <span class="text-sm font-bold text-gray-600 dark:text-gray-400">5-10%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="progress-bar bg-gradient-to-r from-gray-400 to-gray-600 h-4 rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Benchmark Summary Card -->
+                    <div class="bg-pink-soft dark:bg-pink/10 rounded-xl p-6 border border-pink/20 dark:border-pink/30">
+                        <h3 class="text-lg font-bold text-pink-dark dark:text-pink mb-4">Quick Reference Guide</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="circle-check" class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"></i>
+                                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Small wedding (50 guests):</strong> Average cost $12,000 - $20,000</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="circle-check" class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"></i>
+                                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Medium wedding (100 guests):</strong> Average cost $20,000 - $40,000</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="circle-check" class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"></i>
+                                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Large wedding (200 guests):</strong> Average cost $40,000 - $80,000+</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="info" class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"></i>
+                                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Always keep</strong> a 5-10% contingency fund for unexpected expenses</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-6 border-t border-pink/20 dark:border-pink/30">
+                            <h4 class="font-semibold text-pink-dark dark:text-pink mb-3">Most Budget-Friendly Month</h4>
+                            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <i data-lucide="calendar" class="w-4 h-4 text-gold"></i>
+                                <span><strong>January</strong> averages 35% less than June peak season</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- City Cost Comparison -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden card-hover">
+            <div class="p-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3">
+                    <i data-lucide="map-pin" class="w-7 h-7 text-coral"></i>
+                    City Cost Comparison
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8">Average wedding costs across major US cities (100 guests, traditional style)</p>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200 dark:border-gray-700">
+                                <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">City</th>
+                                <th class="text-center py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Avg. Small</th>
+                                <th class="text-center py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Avg. Medium</th>
+                                <th class="text-center py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Avg. Large</th>
+                                <th class="text-center py-4 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Cost Index</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-100 dark:border-gray-700 hover:bg-pink-soft/30 dark:hover:bg-pink/10 transition">
+                                <td class="py-4 px-4 font-medium text-gray-800 dark:text-white">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="building-2" class="w-4 h-4 text-pink"></i>
+                                        New York City
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$18,000</td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$38,000</td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$72,000+</td>
+                                <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 rounded-full text-xs font-bold">Very High</span></td>
+                            </tr>
+                            <tr class="border-b border-gray-100 dark:border-gray-700 hover:bg-pink-soft/30 dark:hover:bg-pink/10 transition">
+                                <td class="py-4 px-4 font-medium text-gray-800 dark:text-white">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="sun" class="w-4 h-4 text-yellow-500"></i>
+                                        Los Angeles
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$15,000</td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$32,000</td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$58,000+</td>
+                                <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-400 rounded-full text-xs font-bold">High</span></td>
+                            </tr>
+                            <tr class="border-b border-gray-100 dark:border-gray-700 hover:bg-pink-soft/30 dark:hover:bg-pink/10 transition">
+                                <td class="py-4 px-4 font-medium text-gray-800 dark:text-white">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="wind" class="w-4 h-4 text-blue-500"></i>
+                                        Chicago
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$10,000</td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$22,000</td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$42,000</td>
+                                <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 rounded-full text-xs font-bold">Moderate</span></td>
+                            </tr>
+                            <tr class="hover:bg-pink-soft/30 dark:hover:bg-pink/10 transition">
+                                <td class="py-4 px-4 font-medium text-gray-800 dark:text-white">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="cloud-rain" class="w-4 h-4 text-teal-500"></i>
+                                        Seattle
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$12,000</td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$25,000</td>
+                                <td class="py-4 px-4 text-center text-gray-700 dark:text-gray-300">$48,000</td>
+                                <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 rounded-full text-xs font-bold">Moderate</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden card-hover">
+            <div class="p-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3">
+                    <i data-lucide="help-circle" class="w-7 h-7 text-pink"></i>
+                    Frequently Asked Questions
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8">Common questions about wedding budget planning</p>
+
+                <div class="space-y-4" id="faqContainer">
+                    <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                        <button class="faq-toggle w-full text-left p-5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition" onclick="toggleAccordion(this)">
+                            <span class="font-semibold text-gray-800 dark:text-white pr-4">How much should I budget for a wedding in 2025?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 flex-shrink-0 faq-icon transition-transform"></i>
+                        </button>
+                        <div class="accordion-content px-5 pb-5 hidden">
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                The average wedding cost varies widely depending on location and size. A small intimate wedding (under 50 guests) typically costs between $10,000-$20,000, while a medium wedding (50-100 guests) ranges from $20,000-$40,000. Large celebrations with 100+ guests can cost $40,000-$80,000+. Major cities like NYC and LA tend to be 30-50% more expensive than smaller markets.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                        <button class="faq-toggle w-full text-left p-5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition" onclick="toggleAccordion(this)">
+                            <span class="font-semibold text-gray-800 dark:text-white pr-4">What is the biggest expense in a typical wedding?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 flex-shrink-0 faq-icon transition-transform"></i>
+                        </button>
+                        <div class="accordion-content px-5 pb-5 hidden">
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                Venue and catering combined typically account for 50-60% of the total wedding budget. The venue rental alone usually takes 25-30%, while food and beverage costs add another 20-30%. This is why choosing the right venue and managing guest count are the two most impactful ways to control your overall wedding costs.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                        <button class="faq-toggle w-full text-left p-5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition" onclick="toggleAccordion(this)">
+                            <span class="font-semibold text-gray-800 dark:text-white pr-4">How far in advance should I start planning my wedding budget?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 flex-shrink-0 faq-icon transition-transform"></i>
+                        </button>
+                        <div class="accordion-content px-5 pb-5 hidden">
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                Ideally, you should start planning your wedding budget 12-18 months before the wedding date. This gives you enough time to research costs, book vendors, and save strategically. However, even if you have less time, our budget calculator can help you quickly estimate costs and create a realistic financial plan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                        <button class="faq-toggle w-full text-left p-5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition" onclick="toggleAccordion(this)">
+                            <span class="font-semibold text-gray-800 dark:text-white pr-4">What are some ways to reduce my wedding budget?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 flex-shrink-0 faq-icon transition-transform"></i>
+                        </button>
+                        <div class="accordion-content px-5 pb-5 hidden">
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                Top money-saving strategies include: (1) Choose an off-peak month like January, February, or November for lower rates. (2) Reduce your guest list to the most important people. (3) Consider a non-traditional venue like a public park or community center. (4) DIY certain elements like invitations or decor. (5) Book vendors during their off-season. Our calculator helps you see exactly where your money goes so you can make informed trade-offs.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                        <button class="faq-toggle w-full text-left p-5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition" onclick="toggleAccordion(this)">
+                            <span class="font-semibold text-gray-800 dark:text-white pr-4">Is this wedding budget calculator really free?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 flex-shrink-0 faq-icon transition-transform"></i>
+                        </button>
+                        <div class="accordion-content px-5 pb-5 hidden">
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                Yes! Our wedding budget calculator and expense tracker are 100% free with no registration required. Unlike TheKnot, Zola, and WeddingWire which often push paid upgrades and vendor commissions, we keep everything simple, unbiased, and free. Just enter your details and get instant results you can trust.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                        <button class="faq-toggle w-full text-left p-5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition" onclick="toggleAccordion(this)">
+                            <span class="font-semibold text-gray-800 dark:text-white pr-4">How accurate is the budget estimation?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 flex-shrink-0 faq-icon transition-transform"></i>
+                        </button>
+                        <div class="accordion-content px-5 pb-5 hidden">
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                Our estimates are based on aggregated industry data from WeddingWire, The Knot, and real wedding surveys. While actual costs vary by vendor, region, and personal choices, our calculator provides a reliable starting point. Think of it as a compass, not a GPS destination. Use it to set your budget direction, then adjust based on local quotes you receive.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-gray-400 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="heart" class="text-pink w-6 h-6"></i>
+                        <span class="font-serif text-lg font-bold text-white">Wedding Budget Planner</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Free wedding budget calculator, expense tracker, and cost benchmarks. Plan your dream wedding without the stress of hidden fees or mandatory sign-ups.
+                    </p>
+                    <p class="text-xs text-gray-500">
+                        No vendor affiliate links. No paid upgrades. Just honest budget planning tools.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="./index.html" class="hover:text-pink transition">Budget Calculator</a></li>
+                        <li><a href="#tracker" class="hover:text-pink transition">Expense Tracker</a></li>
+                        <li><a href="./blog/index.html" class="hover:text-pink transition">Blog</a></li>
+                        <li><a href="./about.html" class="hover:text-pink transition">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="./privacy.html" class="hover:text-pink transition">Privacy Policy</a></li>
+                        <li><a href="./terms.html" class="hover:text-pink transition">Terms of Service</a></li>
+                        <li><a href="./contact.html" class="hover:text-pink transition">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs">&copy; 2025 Wedding Budget Planner. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" aria-label="Facebook" class="hover:text-pink transition">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" aria-label="Pinterest" class="hover:text-pink transition">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" aria-label="Twitter" class="hover:text-pink transition">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Adsense Placeholder -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-xl p-8 text-center border-2 border-dashed border-gray-300 dark:border-gray-700">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">Advertisement</p>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4777085562103932" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="./js/app.js"></script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f717ea4b48564b6ea33d8417934f4770"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+</body>
+</html>

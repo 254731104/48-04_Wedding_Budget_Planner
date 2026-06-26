@@ -1,0 +1,305 @@
+/* Wedding Budget Planner - Main CSS */
+
+/* Base & Typography */
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Gradient Backgrounds */
+.gradient-bg {
+    background: linear-gradient(135deg, #fce7f3 0%, #fdf6f0 50%, #fff5f5 100%);
+}
+
+.dark .gradient-bg {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+/* Card Hover Effects */
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(190, 24, 93, 0.12);
+}
+
+/* Progress Bars */
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+/* Budget Table Rows */
+.budget-row {
+    transition: background-color 0.2s ease;
+}
+
+.budget-row:hover {
+    background-color: rgba(190, 24, 93, 0.04);
+}
+
+.dark .budget-row:hover {
+    background-color: rgba(244, 63, 94, 0.08);
+}
+
+/* Over Budget Alert */
+.over-budget {
+    animation: pulse-red 2s ease-in-out infinite;
+}
+
+@keyframes pulse-red {
+    0%, 100% { background-color: #fee2e2; }
+    50% { background-color: #fecaca; }
+}
+
+.dark .over-budget {
+    background-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Fade In Animation */
+.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Accordion */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+}
+
+.accordion-content.active {
+    max-height: 500px;
+}
+
+.faq-icon {
+    transition: transform 0.3s ease;
+}
+
+.faq-icon.rotated {
+    transform: rotate(180deg);
+}
+
+/* Range Inputs */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: #e5e7eb;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #be185d;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #be185d;
+    cursor: pointer;
+    border: none;
+}
+
+/* Glow Text */
+.glow {
+    text-shadow: 0 0 20px rgba(190, 24, 93, 0.15);
+}
+
+.dark .glow {
+    text-shadow: 0 0 20px rgba(244, 63, 94, 0.2);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f9a8d4;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #be185d;
+}
+
+/* Form Inputs */
+input[type="number"],
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+    transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    box-shadow: 0 0 0 3px rgba(190, 24, 93, 0.15);
+}
+
+/* Print Styles */
+@media print {
+    nav, footer, .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .card-hover {
+        box-shadow: none !important;
+        transform: none !important;
+    }
+
+    table {
+        page-break-inside: auto;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+
+    .grid-cols-4 > div {
+        grid-column: span 2;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .hero-title {
+        font-size: 1.875rem;
+    }
+
+    .gradient-header {
+        padding: 1.5rem 1rem;
+    }
+
+    .card-padding {
+        padding: 1.25rem;
+    }
+
+    .grid-stack > div {
+        grid-column: span 1;
+    }
+}
+
+/* Dark Mode Optimizations */
+.dark .bg-white {
+    background-color: #1f2937;
+}
+
+.dark .text-gray-800 {
+    color: #f3f4f6;
+}
+
+.dark .text-gray-700 {
+    color: #d1d5db;
+}
+
+.dark .text-gray-600 {
+    color: #9ca3af;
+}
+
+.dark .border-gray-200 {
+    border-color: #374151;
+}
+
+.dark .border-gray-300 {
+    border-color: #4b5563;
+}
+
+.dark .bg-gray-100 {
+    background-color: #111827;
+}
+
+.dark .bg-gray-200 {
+    background-color: #374151;
+}
+
+.dark .bg-white\/90 {
+    background-color: rgba(31, 41, 55, 0.9);
+}
+
+.dark .shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* Utility Animations */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-down {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.scale-in {
+    animation: scaleIn 0.4s ease-out;
+}
+
+/* Skeleton Loading */
+.skeleton {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.dark .skeleton {
+    background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+    background-size: 200% 100%;
+}

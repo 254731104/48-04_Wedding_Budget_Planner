@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Wedding Budget Planner & Tracker</title>
+    <meta name="description" content="Learn about our mission to help couples plan their dream wedding without budget stress. We provide free, unbiased wedding budget tools.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://grow-a-garden-2-6p7.pages.dev/about.html">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pink: { DEFAULT: '#be185d', light: '#f43f5e', dark: '#9d174c', soft: '#fce7f3' },
+                        coral: '#e76f51',
+                        gold: '#d4a574',
+                        cream: '#fdf6f0'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .gradient-bg { background: linear-gradient(135deg, #fce7f3 0%, #fdf6f0 50%, #fff5f5 100%); }
+        .dark .gradient-bg { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%); }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Wedding Budget Planner",
+        "url": "https://grow-a-garden-2-6p7.pages.dev/about.html"
+    }
+    </script>
+</head>
+<body class="gradient-bg min-h-screen dark:bg-gray-900 transition-colors duration-300">
+
+    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-sm border-b border-pink-soft/30 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="./index.html" class="flex items-center gap-2">
+                    <i data-lucide="heart" class="text-pink w-6 h-6"></i>
+                    <span class="font-serif text-xl font-bold text-gray-800 dark:text-white">Wedding Budget Planner</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="./index.html" class="text-gray-700 dark:text-gray-300 hover:text-pink transition font-medium">Calculator</a>
+                    <a href="./blog/index.html" class="text-gray-700 dark:text-gray-300 hover:text-pink transition font-medium">Blog</a>
+                    <a href="./about.html" class="text-pink font-semibold transition">About</a>
+                    <a href="./contact.html" class="text-gray-700 dark:text-gray-300 hover:text-pink transition font-medium">Contact</a>
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-pink-soft dark:bg-gray-700 hover:bg-pink-light/20 transition">
+                        <i data-lucide="moon" class="w-5 h-5 text-pink dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 text-yellow-400 hidden dark:inline"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="darkModeToggleMobile" class="p-2 rounded-lg bg-pink-soft dark:bg-gray-700">
+                        <i data-lucide="moon" class="w-5 h-5 text-pink dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 text-yellow-400 hidden dark:inline"></i>
+                    </button>
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6 text-gray-700 dark:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+                <a href="./index.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-soft dark:hover:bg-gray-700 rounded-lg">Calculator</a>
+                <a href="./blog/index.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-soft dark:hover:bg-gray-700 rounded-lg">Blog</a>
+                <a href="./about.html" class="block px-4 py-2 text-pink dark:text-pink font-semibold bg-pink-soft/50 dark:bg-pink/10 rounded-lg">About</a>
+                <a href="./contact.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-pink-soft dark:hover:bg-gray-700 rounded-lg">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 fade-in">
+        <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+            <div class="relative h-64 bg-gradient-to-r from-pink to-coral">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&h=400&fit=crop" alt="Couple planning their wedding" class="w-full h-full object-cover opacity-30">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white text-center">About Wedding Budget Planner</h1>
+                </div>
+            </div>
+
+            <div class="p-8 md:p-12 space-y-8 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Mission</h2>
+                    <p>
+                        Planning a wedding should be one of the most joyful experiences of your life, not a source of financial stress. That's why we created Wedding Budget Planner &amp; Tracker -- a free, simple, and transparent tool designed to help you estimate, plan, and track every dollar of your wedding budget.
+                    </p>
+                    <p>
+                        We believe that every couple deserves access to professional-quality budget planning tools, regardless of their budget size or wedding style. Whether you're planning a small elopement with 10 guests or a grand celebration with 200 attendees, our tools adapt to your needs.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Why We're Different</h2>
+                    <p>
+                        Unlike popular platforms like TheKnot, Zola, and WeddingWire, we've built our tool with a fundamentally different philosophy: <strong>free first, always.</strong>
+                    </p>
+                    <ul class="space-y-3 mt-4">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-pink flex-shrink-0 mt-0.5"></i>
+                            <span><strong>No registration required.</strong> Start planning immediately without creating an account or sharing personal information.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-pink flex-shrink-0 mt-0.5"></i>
+                            <span><strong>No vendor commissions.</strong> Our budget estimates aren't biased toward any particular vendor or service provider. We give you unbiased benchmarks based on industry data.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-pink flex-shrink-0 mt-0.5"></i>
+                            <span><strong>No paid upgrades.</strong> Every feature is 100% free, forever. There are no premium tiers, no hidden fees, and no upsells.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-pink flex-shrink-0 mt-0.5"></i>
+                            <span><strong>No bloat.</strong> Clean, focused tools that load fast and work on any device. No social media distractions or vendor push notifications.</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">What We Offer</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-pink-soft dark:bg-pink/10 rounded-xl p-5 border border-pink/10 dark:border-pink/20">
+                            <i data-lucide="calculator" class="w-8 h-8 text-pink mb-3"></i>
+                            <h3 class="font-bold text-gray-900 dark:text-white mb-2">Budget Calculator</h3>
+                            <p class="text-sm">Select your wedding size, location, and style to get an instant customized budget estimate with category breakdowns.</p>
+                        </div>
+                        <div class="bg-coral/10 rounded-xl p-5 border border-coral/20">
+                            <i data-lucide="wallet" class="w-8 h-8 text-coral mb-3"></i>
+                            <h3 class="font-bold text-gray-900 dark:text-white mb-2">Expense Tracker</h3>
+                            <p class="text-sm">Input your planned budget and actual spending for each category. Automatically track deviations and get overspending alerts.</p>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-5 border border-blue-200 dark:border-blue-700">
+                            <i data-lucide="bar-chart-3" class="w-8 h-8 text-blue-500 mb-3"></i>
+                            <h3 class="font-bold text-gray-900 dark:text-white mb-2">Industry Benchmarks</h3>
+                            <p class="text-sm">See how your spending compares to industry standards. Know what percentage each category should realistically consume.</p>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/30 rounded-xl p-5 border border-green-200 dark:border-green-700">
+                            <i data-lucide="map-pin" class="w-8 h-8 text-green-500 mb-3"></i>
+                            <h3 class="font-bold text-gray-900 dark:text-white mb-2">City Cost Comparison</h3>
+                            <p class="text-sm">Compare average wedding costs across NYC, LA, Chicago, and Seattle to understand your local market.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Who We Are</h2>
+                    <p>
+                        We're a small team of product designers, developers, and wedding enthusiasts who were frustrated by the complexity and hidden costs of existing wedding planning platforms. After attending what felt like our 20th wedding planning appointment -- where every "free" tool started asking for credit card info -- we decided to build something better.
+                    </p>
+                    <p>
+                        Our team brings experience from the consumer productivity and finance tooling space. We've spent hundreds of hours building the most intuitive, fastest-loading wedding budget calculator on the web.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Promise</h2>
+                    <p>
+                        We promise to keep this tool simple, fast, and free. We will never sell your data, bombard you with vendor promotions, or hide features behind paywalls. If you find a better free wedding budget tool, we'd love to hear about it -- but we're pretty confident you won't.
+                    </p>
+                    <p class="mt-4">
+                        Got feedback or a feature idea? <a href="/contact.html" class="text-pink font-semibold hover:underline">Reach out to us</a>. We read every message and appreciate every suggestion.
+                    </p>
+                </section>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-gray-900 dark:bg-black text-gray-400 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm">
+            <p>&copy; 2025 Wedding Budget Planner. All rights reserved.</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <a href="./privacy.html" class="hover:text-pink transition">Privacy</a>
+                <a href="./terms.html" class="hover:text-pink transition">Terms</a>
+                <a href="./contact.html" class="hover:text-pink transition">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        function toggleDarkMode() {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
+        document.getElementById('darkModeToggleMobile')?.addEventListener('click', toggleDarkMode);
+
+        // Mobile menu
+        document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+    </script>
+    <script>lucide.createIcons();</script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f717ea4b48564b6ea33d8417934f4770"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
