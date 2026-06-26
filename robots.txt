@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://grow-a-garden-2-6p7.pages.dev/sitemap.xml
+Sitemap: https://wedding-budget-planner.pages.dev/sitemap.xml

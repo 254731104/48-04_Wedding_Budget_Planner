@@ -17,10 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
 function initDarkMode() {
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('wb-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    // Default to light mode, only use dark if explicitly saved as 'dark'
+    if (savedTheme === 'dark') {
         html.classList.add('dark');
+    } else {
+        html.classList.remove('dark');
+        localStorage.setItem('wb-theme', 'light');
     }
 
     // All dark mode toggle buttons
@@ -352,4 +355,61 @@ function toggleAccordion(button) {
 // ===================== UTILITY =====================
 function formatCurrency(amount) {
     return '$' + Number(amount).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+// ===================== EXPORT FUNCTIONS =====================
+function exportToCSV() {
+    if (trackerCategories.length === 0) {
+        alert('No data to export. Add some categories first.');
+        return;
+    }
+    const headers = ['Category', 'Budget ($)', 'Actual Spent ($)', 'Difference ($)'];
+    const rows = trackerCategories.map(function(cat) {
+        const budget = parseFloat(cat.budget) || 0;
+        const spent = parseFloat(cat.spent) || 0;
+        const diff = budget - spent;
+        return [cat.name, budget, spent, diff];
+    });
+
+    // Add totals row
+    const totalBudget = rows.reduce(function(sum, row) { return sum + row[1]; }, 0);
+    const totalSpent = rows.reduce(function(sum, row) { return sum + row[2]; }, 0);
+    rows.push(['TOTAL', totalBudget, totalSpent, totalBudget - totalSpent]);
+
+    const csvContent = headers.join(',') + '\n' + rows.map(function(row) { return row.join(','); }).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'wedding_budget_tracker_' + new Date().toISOString().split('T')[0] + '.csv';
+    link.click();
+}
+
+function exportToJSON() {
+    if (trackerCategories.length === 0) {
+        alert('No data to export. Add some categories first.');
+        return;
+    }
+    const exportData = {
+        exportDate: new Date().toISOString(),
+        categories: trackerCategories.map(function(cat) {
+            const budget = parseFloat(cat.budget) || 0;
+            const spent = parseFloat(cat.spent) || 0;
+            return {
+                name: cat.name,
+                budget: budget,
+                spent: spent,
+                difference: budget - spent,
+                status: spent > budget && budget > 0 ? 'over' : 'on-track'
+            };
+        }),
+        summary: {
+            totalBudget: trackerCategories.reduce(function(sum, cat) { return sum + (parseFloat(cat.budget) || 0); }, 0),
+            totalSpent: trackerCategories.reduce(function(sum, cat) { return sum + (parseFloat(cat.spent) || 0); }, 0)
+        }
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'wedding_budget_tracker_' + new Date().toISOString().split('T')[0] + '.json';
+    link.click();
 }

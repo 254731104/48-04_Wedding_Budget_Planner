@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QMYH6CFRKN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QMYH6CFRKN');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Budget Calculator & Planner - Free Wedding Budget Tracker (No Sign-Up)</title>
     <meta name="description" content="Free wedding budget calculator and tracker. Estimate your wedding costs, track expenses by category, and stay under budget. No registration required. Works for small, medium & large weddings.">
     <meta name="keywords" content="wedding budget calculator, wedding budget planner, wedding cost estimator, wedding budget template free, wedding expenses tracker">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://grow-a-garden-2-6p7.pages.dev/">
+    <link rel="canonical" href="https://wedding-budget-planner.pages.dev/">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Free Wedding Budget Calculator & Tracker">
     <meta property="og:description" content="Plan your perfect wedding without breaking the bank. Free budget calculator, expense tracker, and cost benchmarks.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://grow-a-garden-2-6p7.pages.dev/">
+    <meta property="og:url" content="https://wedding-budget-planner.pages.dev/">
     <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-6134d6da7d6e?w=1200&h=630&fit=crop">
 
     <!-- Tailwind CSS -->
@@ -53,7 +61,7 @@
         "@type": "WebApplication",
         "name": "Wedding Budget Planner & Tracker",
         "description": "Free wedding budget calculator and expense tracker. Plan your wedding costs by category, compare city averages, and track your spending.",
-        "url": "https://grow-a-garden-2-6p7.pages.dev/",
+        "url": "https://wedding-budget-planner.pages.dev/",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web Browser",
         "offers": {
@@ -417,9 +425,19 @@
                     </button>
                 </div>
 
-                <!-- Reset Button -->
-                <div class="mt-4 text-right">
-                    <button onclick="resetTracker()" class="text-sm text-gray-500 dark:text-gray-400 hover:text-pink transition flex items-center gap-1 ml-auto">
+                <!-- Export & Reset Buttons -->
+                <div class="mt-4 flex flex-wrap justify-between gap-3">
+                    <div class="flex gap-3">
+                        <button onclick="exportToCSV()" class="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg hover:bg-green-200 dark:hover:bg-green-900/50 transition flex items-center gap-2 text-sm font-medium">
+                            <i data-lucide="file-down" class="w-4 h-4"></i>
+                            Export CSV
+                        </button>
+                        <button onclick="exportToJSON()" class="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition flex items-center gap-2 text-sm font-medium">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            Export JSON
+                        </button>
+                    </div>
+                    <button onclick="resetTracker()" class="text-sm text-gray-500 dark:text-gray-400 hover:text-pink transition flex items-center gap-1">
                         <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                         Reset All Data
                     </button>
@@ -761,7 +779,7 @@
             </div>
 
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-xs">&copy; 2025 Wedding Budget Planner. All rights reserved.</p>
+                <p class="text-xs">&copy; 2026 Wedding Budget Planner. All rights reserved.</p>
                 <div class="flex gap-4">
                     <a href="#" aria-label="Facebook" class="hover:text-pink transition">
                         <i data-lucide="facebook" class="w-5 h-5"></i>
